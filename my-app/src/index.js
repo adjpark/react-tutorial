@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-// ========================================
+// ==================== Components ====================
 
 function Square(props) {
   return (
@@ -46,8 +46,14 @@ class Board extends React.Component {
 }
 
 class Game extends React.Component {
+  // Set required state inside the constructor
   constructor(props) {
+    // Need to set super in order to access "this"
     super(props);
+
+    // history - array to store each step?
+    // stepNumber - step number counter
+    // xIsNext - boolean value to check which player's turn
     this.state = {
       history: [{
         squares: Array(9).fill(null),
@@ -88,14 +94,13 @@ class Game extends React.Component {
     const winner = calculateWinner(current.squares);
 
     const moves = history.map((step, move) => {
-      const desc = move ?
-        'Go to move #' + move :
-        'Go to game start';
-        return (
-          <li key={move}>
-            <button onClick={() => this.jumpTo(move)}>{desc}</button>
-          </li>
-        );
+      const desc = move ? 'Go to move #' + move : 'Go to game start';
+
+      return (
+        <li key={move}>
+          <button onClick={() => this.jumpTo(move)}>{desc}</button>
+        </li>
+      );
     });
 
     let status;
@@ -122,7 +127,7 @@ class Game extends React.Component {
   }
 }
 
-// ========================================
+// ==================== DOM Render ====================
 
 ReactDOM.render(
   <Game />,
@@ -130,7 +135,7 @@ ReactDOM.render(
 );
 
 
-// ========================================
+// ==================== Helper Functions ====================
 
 function calculateWinner(squares) {
   const lines = [
